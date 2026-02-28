@@ -42,7 +42,7 @@ describe("About Objects (about_objects.js)", function() {
       name: "Amory Blaine",
       age: 102,
       toString: function() {
-        return this.name;  // Подсказка: используйте ключевое слово 'this' для обращения к объекту person.
+        return 'I ' + this.name + ' am ' + this.age + ' years old.';  // Подсказка: используйте ключевое слово 'this' для обращения к объекту person.
       }
     };
     // Какое значение возвращает метод toString?

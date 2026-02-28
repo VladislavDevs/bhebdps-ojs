@@ -61,7 +61,7 @@ describe("About Arrays (about_arrays.js)", function() {
     // Какое значение в workingWeek?
     expect(workingWeek).toEqual(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']);
     // Какое значение в weekend?
-    expect(weekend).toEqual(['Saturday, Sunday']);
+    expect(weekend).toEqual(['Saturday', 'Sunday']);
   });
 
   it("stack methods", function() {

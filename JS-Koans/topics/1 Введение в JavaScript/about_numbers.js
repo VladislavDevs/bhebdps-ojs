@@ -13,8 +13,8 @@ describe("About Numbers (about_numbers.js)", function() {
   it("NaN", function() {
     let resultOfFailedOperations = 7/'apple';
     // Что удовлетворит следующее утверждение о равенстве?
-    expect('true').toBe(isNaN(resultOfFailedOperations));
+    expect(true).toBe(isNaN(resultOfFailedOperations));
     // Что вернёт NaN == NaN?
-    expect(true).toBe(resultOfFailedOperations == NaN);
+    expect(false).toBe(resultOfFailedOperations == NaN);
   });
 });
