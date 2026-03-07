@@ -38,7 +38,7 @@ describe("About Prototypal Inheritance (about_prototypal_inheritance.js)", funct
     // к прототипу Mammal после того, как paul был создан.
 
      // Что вернёт вызов метода?
-    expect(FILL_ME_IN).toBe(paul.numberOfLettersInName());
+    expect(4).toBe(paul.numberOfLettersInName());
   });
 
   // https://learn.javascript.ru/prototype-inheritance
@@ -59,9 +59,9 @@ describe("About Prototypal Inheritance (about_prototypal_inheritance.js)", funct
     let lenny = new Bat("Lenny", "1.5m");
 
      // Что вернёт вызов метода?
-    expect(FILL_ME_IN).toBe(lenny.sayHi());
+    expect('Hello, my name is Lenny').toBe(lenny.sayHi());
 
     // Что находится в свойстве wingspan?
-    expect(FILL_ME_IN).toBe(lenny.wingspan);
+    expect('1.5m').toBe(lenny.wingspan);
   });
 });
