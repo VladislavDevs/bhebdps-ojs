@@ -58,6 +58,6 @@ describe("About Mutability (about_mutability.js)", function() {
       return aPerson.lastname + ", " + aPerson.firstname;
     };
 
-    expect(aPerson.getFullName()).toBe('Adnrews, Penny');
+    expect(aPerson.getFullName()).toBe('Andrews, Penny');
   });
 });

@@ -14,7 +14,7 @@ describe("About Prototypal Inheritance (about_prototypal_inheritance.js)", funct
     let eric  = new Mammal("Eric");
 
     // Что вернёт вызов метода?
-    expect(FILL_ME_IN).toBe(eric.sayHi());
+    expect('Hello, my name is Eric').toBe(eric.sayHi());
   });
 
   // Добавим ещё один метод в класс Mammal, который использует метод sayHi.
@@ -26,7 +26,7 @@ describe("About Prototypal Inheritance (about_prototypal_inheritance.js)", funct
     let bobby = new Mammal("Bobby");
 
      // Что вернёт вызов метода?
-    expect(FILL_ME_IN).toBe(bobby.favouriteSaying()); 
+    expect("Bobby's favourite saying is Hello, my name is Bobby").toBe(bobby.favouriteSaying()); 
   });
 
   it("calling functions added to a prototype after an object was created", function() {
