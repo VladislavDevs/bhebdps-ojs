@@ -8,7 +8,7 @@ class AlarmClock {
     // Добавление нового звонка
     addClock(time, callback) {
         if (!time || !callback) {
-            throw new Error('Отсутствуют обязательные аргументы');
+            throw new Error('Отсутствуют обязательные аргументы');g
         }
 
         // Проверка на существование звонка с таким же временем
