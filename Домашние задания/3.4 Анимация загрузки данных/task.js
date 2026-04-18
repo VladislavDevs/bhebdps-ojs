@@ -1,44 +1,77 @@
-// Функция для запуска отдельного ротатора
-function startRotator(rotator) {
-    const cases = Array.from(rotator.querySelectorAll('.rotator__case'));
-    if (cases.length === 0) return;
+(function() {
+    const requestUrl = 'https://students.netoservices.ru/nestjs-backend/slow-get-courses';
+    
+    const loader = document.getElementById('loader');
+    const itemsContainer = document.getElementById('items');
 
-    const defaultSpeed = 1000;
-    const defaultColor = 'black';
-
-    let speed = defaultSpeed;
-    let textColor = defaultColor;
-
-    if (rotator.dataset.speed) {
-        speed = parseInt(rotator.dataset.speed, 10);
-        if (isNaN(speed) || speed <= 0) speed = defaultSpeed;
+    function setLoaderActive(isActive) {
+        if (isActive) {
+            loader.classList.add('loader_active');
+        } else {
+            loader.classList.remove('loader_active');
+        }
+    }
+    
+    function createCurrencyItem(charCode, value) {
+        const item = document.createElement('div');
+        item.className = 'item';
+        
+        const codeDiv = document.createElement('div');
+        codeDiv.className = 'item__code';
+        codeDiv.textContent = charCode;
+        
+        const valueDiv = document.createElement('div');
+        valueDiv.className = 'item__value';
+        valueDiv.textContent = value;
+        
+        const currencyDiv = document.createElement('div');
+        currencyDiv.className = 'item__currency';
+        currencyDiv.textContent = 'руб.';
+        
+        item.appendChild(codeDiv);
+        item.appendChild(valueDiv);
+        item.appendChild(currencyDiv);
+        
+        return item;
+    }
+    
+    function displayCurrencies(valuteData) {
+        itemsContainer.innerHTML = '';
+        
+        for (const currencyCode in valuteData) {
+            const currency = valuteData[currencyCode];
+            const charCode = currency.CharCode;
+            const value = currency.Value;
+            
+            const currencyItem = createCurrencyItem(charCode, value);
+            itemsContainer.appendChild(currencyItem);
+        }
+    }
+    
+    async function fetchExchangeRates() {
+        try {
+            setLoaderActive(true);
+            
+            const response = await fetch(requestUrl);
+            
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data && data.response && data.response.Valute) {
+                displayCurrencies(data.response.Valute);
+            } else {
+                throw new Error('Неверный формат данных от сервера');
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+            itemsContainer.innerHTML = '<div class="error">Не удалось загрузить курсы валют. Попробуйте позже.</div>';
+        } finally {
+            setLoaderActive(false);
+        }
     }
 
-    if (rotator.dataset.color) {
-        textColor = rotator.dataset.color;
-    }
-
-    let activeIndex = cases.findIndex(c => c.classList.contains('rotator__case_active'));
-    if (activeIndex === -1) {
-        activeIndex = 0;
-        cases[activeIndex].classList.add('rotator__case_active');
-    }
-
-    rotator.style.setProperty('--rotator-color', textColor);
-
-    // Функция переключения на следующий элемент
-    function rotate() {
-        cases[activeIndex].classList.remove('rotator__case_active');
-        activeIndex = (activeIndex + 1) % cases.length;
-        cases[activeIndex].classList.add('rotator__case_active');
-    }
-
-    const timerId = setInterval(rotate, speed);
-    return timerId;
-}
-
-const rotators = document.querySelectorAll('.rotator');
-
-rotators.forEach(rotator => {
-    startRotator(rotator);
-});
+    fetchExchangeRates();
+})();
